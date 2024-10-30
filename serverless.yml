@@ -1,0 +1,30 @@
+service: api-agendamento-medico
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: api
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  getAgendas:
+    handler: src/agenda/controller/AgendaController.buscarAgendas
+    events:
+      - http:
+          path: /agendas
+          method: get
+  
+  criarAgendamento:
+    handler: src/agendamento/controller/AgendamentoController.criarAgendamento
+    events:
+      - http:
+          path: /agendamento
+          method: post
+
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true
+    prefix: ''
